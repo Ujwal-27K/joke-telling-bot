@@ -1,38 +1,382 @@
+/* Reset */
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --accent: #22d3ee;
+  --danger: #ef4444;
+}
+
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
+  height: auto;
+  background: radial-gradient(1200px 800px at 80% -20%, rgba(124, 58, 237, 0.15), transparent),
+              radial-gradient(1000px 700px at -10% 30%, rgba(34, 211, 238, 0.12), transparent),
+              var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 2rem;
+}
+
+.App-header {
+  padding: 2rem 1rem 1rem;
+  text-align: center;
+}
+
+.App-header h1 { 
+  margin: 0 0 0.5rem; 
+  font-size: 2.4rem; 
+}
+
+.App-header p { 
+  margin: 0; 
+  color: var(--muted);
+}
+
+.App-main {
+  width: 100%;
+  max-width: 900px;
+  padding: 1rem;
+}
+
+.joke-container {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 1rem 0 1.5rem;
+}
+
+.joke-text {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+button {
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
   color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.05s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+button:active { transform: translateY(1px); }
+
+.joke-button {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+.joke-button:hover { background: linear-gradient(135deg, var(--primary-hover), var(--accent)); }
+
+.stop-button { background: var(--danger); }
+.stop-button:hover { background: #dc2626; }
+
+.voice-button { background: #0ea5e9; }
+.voice-button:hover { background: #0284c7; }
+
+.settings {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.settings h3 { margin: 0 0 0.75rem; }
+
+.setting-group {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+
+label { color: var(--muted); }
+
+select, input[type="range"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #0b1220;
+  color: var(--text);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.instructions { 
+  color: var(--muted); 
+  margin-top: 1.5rem;
+  text-align: center;
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+}
+
+.instructions h3 {
+  text-align: center;
+  margin: 0 0 1rem 0;
+  color: var(--text);
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.instructions h3::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 1px;
+}
+
+.instructions ul { 
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.instructions li {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  transition: background 0.2s ease;
+}
+
+.instructions li:hover {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.instructions li:last-child {
+  margin-bottom: 0;
+}
+
+/* Voice loading styles */
+.voice-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.voice-loading span {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.reload-voices-btn {
+  padding: 0.4rem 0.8rem !important;
+  font-size: 0.8rem !important;
+  background: var(--primary) !important;
+  border-radius: 6px !important;
+}
+
+.reload-voices-btn:hover {
+  background: var(--primary-hover) !important;
+}
+
+.voice-info {
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.voice-info strong {
+  color: var(--accent);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .App-main {
+    padding: 0.5rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .setting-group {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    text-align: left;
+  }
+  
+  .setting-group label {
+    font-weight: 600;
+  }
+  
+  .joke-text {
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    padding: 1rem 0.5rem 0.5rem;
+  }
+  
+  .App-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .App-header p {
+    font-size: 0.9rem;
+  }
+  
+  .joke-container {
+    min-height: 100px;
+    margin: 0.5rem 0 1rem;
+  }
+  
+  .settings {
+    padding: 0.8rem;
+  }
+  
+  .instructions {
+    font-size: 0.9rem;
+  }
+}
+
+/* Improved footer/bottom spacing - already applied above */
+
+/* Better scrolling on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Footer Styles */
+.app-footer {
+  margin-top: auto;
+  padding: 2rem 1rem 1rem;
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.app-footer p {
+  margin: 0.5rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.app-footer strong {
+  color: var(--text);
+}
+
+.footer-trademark {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.footer-trademark p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.footer-links span {
+  color: var(--muted);
+  margin: 0 0.25rem;
+}
+
+/* Responsive footer */
+@media (max-width: 480px) {
+  .app-footer {
+    padding: 1.5rem 0.5rem 1rem;
+  }
+  
+  .app-footer p {
+    font-size: 0.8rem;
+  }
+  
+  .footer-trademark p {
+    font-size: 0.75rem;
+  }
+  
+  .footer-links {
+    gap: 0.3rem;
+  }
+  
+  .footer-links a {
+    font-size: 0.75rem;
   }
 }
